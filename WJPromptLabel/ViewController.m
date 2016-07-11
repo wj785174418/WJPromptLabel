@@ -19,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.prompt = [WJPromptLabel sharedPromptLabel];
-    
     [self.view addSubview:self.prompt];
 }
 
