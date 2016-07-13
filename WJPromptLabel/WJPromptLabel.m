@@ -45,7 +45,7 @@ static WJPromptLabel *sharedPrompt;
 }
 
 -(void)setText:(NSString *)text{
-    if (self.text != text) {
+    if (![self.text isEqualToString:text]) {
         [super setText:text];
         [self layoutLabel];
     }
