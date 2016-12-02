@@ -12,11 +12,11 @@
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 
 #define FontSize 13
-#define MarginInset 13
+#define MarginInset 11
 #define Center CGPointMake(ScreenWidth/2, ScreenHeight-3*(FontSize+2*MarginInset))
 
 @interface WJPromptLabel : UILabel
 
-+(instancetype)sharedPromptLabel;
++(void)promptText:(NSString *)text;
 
 @end

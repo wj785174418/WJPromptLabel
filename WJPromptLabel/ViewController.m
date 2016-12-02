@@ -11,19 +11,16 @@
 #import "AppDelegate.h"
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (strong, nonatomic) WJPromptLabel *prompt;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.prompt = [WJPromptLabel sharedPromptLabel];
-    [self.view addSubview:self.prompt];
 }
 
 - (IBAction)clickBtn:(id)sender {
-    self.prompt.text = self.textField.text;
+    [WJPromptLabel promptText:self.textField.text];
 }
 
 - (void)didReceiveMemoryWarning {

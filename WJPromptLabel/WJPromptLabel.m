@@ -12,20 +12,18 @@ static WJPromptLabel *sharedPrompt;
 
 @implementation WJPromptLabel
 
-+(instancetype)sharedPromptLabel{
-    if (sharedPrompt != nil) {
-        return sharedPrompt;
-    }
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedPrompt = [[WJPromptLabel alloc]init];
-        [sharedPrompt setAttributes];
-    });
-    return sharedPrompt;
++ (void)initialize{
+    sharedPrompt = [[WJPromptLabel alloc]init];
+    [sharedPrompt setAttributes];
 }
 
--(void)setAttributes{
++ (void)promptText:(NSString *)text{
+    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
+    [window addSubview:sharedPrompt];
+    sharedPrompt.text = text;
+}
+
+- (void)setAttributes{
     
     self.font = [UIFont systemFontOfSize:FontSize];
     
@@ -38,13 +36,13 @@ static WJPromptLabel *sharedPrompt;
     self.alpha = 0;
 }
 
--(void)layoutSubviews{
+- (void)layoutSubviews{
     [super layoutSubviews];
     self.layer.cornerRadius = 8;
     self.clipsToBounds = YES;
 }
 
--(void)setText:(NSString *)text{
+- (void)setText:(NSString *)text{
     if (![self.text isEqualToString:text]) {
         [super setText:text];
         [self layoutLabel];
@@ -52,7 +50,7 @@ static WJPromptLabel *sharedPrompt;
     [self addAnimation];
 }
 
--(void)layoutLabel{
+- (void)layoutLabel{
     [self sizeToFit];
     
     CGRect labelFrame = self.frame;
@@ -64,7 +62,7 @@ static WJPromptLabel *sharedPrompt;
     self.center = Center;
 }
 
--(void)addAnimation{
+- (void)addAnimation{
     CAAnimation *anim = [self.layer animationForKey:@"prompt"];
     if (anim) {
         [self.layer removeAnimationForKey:@"prompt"];
